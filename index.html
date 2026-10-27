@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Smart Student Productivity Manager</title>
+  <meta name="description" content="TaskFlow is a frontend-only student task manager with Kanban, calendar and analytics." />
+  <meta name="theme-color" content="#6366f1" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <noscript><p style="padding:2rem;font-family:sans-serif">TaskFlow needs JavaScript enabled to run.</p></noscript>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <i data-lucide="check-square"></i>
+          </div>
+          <span class="logo-text">TaskFlow</span>
+        </div>
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-page="tasks">
+          <i data-lucide="list-todo"></i>
+          <span>All Tasks</span>
+        </a>
+        <a href="#" class="nav-item" data-page="myday">
+          <i data-lucide="sun"></i>
+          <span>My Day</span>
+        </a>
+        <a href="#" class="nav-item" data-page="kanban">
+          <i data-lucide="columns-3"></i>
+          <span>Kanban Board</span>
+        </a>
+        <a href="#" class="nav-item" data-page="calendar">
+          <i data-lucide="calendar"></i>
+          <span>Calendar</span>
+        </a>
+        <a href="#" class="nav-item" data-page="analytics">
+          <i data-lucide="bar-chart-3"></i>
+          <span>Analytics</span>
+        </a>
+        <a href="#" class="nav-item" data-page="settings">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-mini">
+          <div class="avatar">S</div>
+          <div class="user-info">
+            <span class="user-name">Student</span>
+            <span class="user-role">University</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Top bar -->
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="search" id="globalSearch" placeholder="Search tasks..." aria-label="Search tasks" />
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+            <i data-lucide="moon" id="themeIcon"></i>
+          </button>
+          <button class="icon-btn notification-btn" id="notifBtn" aria-label="Notifications">
+            <i data-lucide="bell"></i>
+            <span class="badge" id="notifBadge" hidden>0</span>
+          </button>
+          <div class="profile-chip">
+            <div class="avatar">S</div>
+            <span class="profile-name">Student</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="content" id="content">
+        <!-- Pages injected by JS -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification panel -->
+  <div class="notif-panel" id="notifPanel" hidden>
+    <div class="notif-header">
+      <h3>Notifications</h3>
+      <button class="icon-btn" id="closeNotif" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="notif-list" id="notifList"></div>
+  </div>
+
+  <!-- Task Modal -->
+  <div class="modal-overlay" id="taskModal" hidden>
+    <div class="modal" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Task</h2>
+        <button class="icon-btn" id="closeModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="taskForm" class="modal-body">
+        <input type="hidden" id="taskId" />
+        <div class="form-group">
+          <label for="taskTitle">Title <span class="req">*</span></label>
+          <input type="text" id="taskTitle" required maxlength="120" placeholder="e.g. Finish SE assignment" />
+        </div>
+        <div class="form-group">
+          <label for="taskDesc">Description</label>
+          <textarea id="taskDesc" rows="3" placeholder="Optional details..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskSubject">Subject / Category</label>
+            <input type="text" id="taskSubject" placeholder="e.g. Software Engineering" list="subjectList" />
+            <datalist id="subjectList"></datalist>
+          </div>
+          <div class="form-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskDue">Due Date &amp; Time</label>
+            <input type="datetime-local" id="taskDue" />
+          </div>
+          <div class="form-group">
+            <label for="taskStatus">Status</label>
+            <select id="taskStatus">
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="taskTags">Tags (comma separated)</label>
+          <input type="text" id="taskTags" placeholder="e.g. exam, project, reading" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelTask">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTask">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Task Details Modal -->
+  <div class="modal-overlay" id="detailsModal" hidden>
+    <div class="modal modal-sm" role="dialog" aria-labelledby="detailsTitle">
+      <div class="modal-header">
+        <h2 id="detailsTitle">Task Details</h2>
+        <button class="icon-btn" id="closeDetails" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="detailsBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="detailsEdit">Edit</button>
+        <button type="button" class="btn btn-danger" id="detailsDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="modal-overlay" id="confirmModal" hidden>
+    <div class="modal modal-sm" role="dialog">
+      <div class="modal-header">
+        <h2 id="confirmTitle">Confirm</h2>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage">Are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmOk">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
