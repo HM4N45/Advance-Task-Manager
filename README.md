@@ -1,211 +1,141 @@
-# TaskFlow — Smart Student Productivity Manager
+# TaskFlow
 
-A complete frontend-only web application for managing student tasks, deadlines, and productivity. Built as a university **Software Engineering** project using HTML5, CSS3, and Vanilla JavaScript.
+**A smart productivity manager for university students.**
 
----
+TaskFlow brings assignments, exams, labs and group projects into one clean workspace. Plan your week, drag tasks across a Kanban board, see deadlines on a calendar, and track your progress with live analytics. It runs entirely in the browser with no backend, no account and no setup.
 
-## Problem Statement
+Built with HTML5, CSS3 and vanilla JavaScript as a university **Software Engineering** project.
 
-University students juggle assignments, exams, labs, and group projects across multiple subjects. Many rely on scattered notes or generic to-do apps that lack academic context (subjects, priorities, overdue visibility). There is a need for a focused, offline-capable productivity tool that helps students organize tasks, visualize workload, and track completion without requiring accounts or a backend.
-
----
-
-## Project Objectives
-
-1. Provide a polished, modern dashboard for daily student productivity.
-2. Support full task lifecycle: create, edit, complete, delete, duplicate.
-3. Offer multiple views: list, Kanban (drag-and-drop), calendar, and analytics.
-4. Persist all data in the browser using `localStorage`.
-5. Deliver a professional UI with light/dark themes suitable for demonstration and evaluation.
+> **Live demo:** _add your deployed URL here_
+> **Author:** _Your Name_ · _Your University / Course_
 
 ---
 
-## Functional Requirements
+## Why TaskFlow?
 
-| ID | Requirement |
-|----|-------------|
-| FR1 | User can create tasks with title, description, subject, due date/time, priority, status, and tags. |
-| FR2 | User can edit, delete (with confirmation), and duplicate tasks. |
-| FR3 | User can mark tasks complete/incomplete from list or details. |
-| FR4 | User can search, filter (status/priority/subject), and sort tasks. |
-| FR5 | Overdue tasks are visually highlighted. |
-| FR6 | Kanban board allows drag-and-drop between To Do / In Progress / Completed. |
-| FR7 | Calendar shows tasks on due dates; user can navigate months and select a day. |
-| FR8 | Dashboard and Analytics show live stats and Chart.js charts derived from stored tasks. |
-| FR9 | User can export tasks as CSV and import from JSON. |
-| FR10 | Dark/light mode preference is saved. |
-| FR11 | Demo sample tasks load on first visit; user can clear all data. |
-| FR12 | Notification badge shows overdue and near-due tasks. |
+Students juggle deadlines across many subjects, but generic to-do apps know nothing about academic life. They have no subjects, no priority levels and no clear view of what is overdue. TaskFlow is built around that context. It is fast, private (your data never leaves your device) and works offline once loaded.
 
-## Non-Functional Requirements
+## Features
 
-| ID | Requirement |
-|----|-------------|
-| NFR1 | Runs entirely in the browser; no server, API keys, or login. |
-| NFR2 | Responsive layout for desktop, tablet, and mobile. |
-| NFR3 | Accessible labels, keyboard-friendly controls, and clear empty states. |
-| NFR4 | Code organized in separate HTML / CSS / JS files; readable for beginners. |
-| NFR5 | Graceful handling of invalid import files and empty titles. |
+| Area | What you get |
+|------|--------------|
+| **Dashboard** | Summary cards, recent tasks, upcoming deadlines, weekly and priority charts |
+| **Task management** | Create, edit, duplicate, delete (with confirmation) and complete tasks, with title, description, subject, due date and time, priority, status and tags |
+| **Search, filter, sort** | Search across title, description, subject and tags; filter by status, priority and subject; sort by deadline, priority or creation date |
+| **My Day** | A focus view of what is due today plus anything overdue |
+| **Kanban board** | Drag and drop cards between To Do, In Progress and Completed |
+| **Calendar** | Monthly view with priority-coloured task dots and a per-day task list |
+| **Analytics** | Completion rate, pending vs completed, priority and category breakdowns, a weekly trend and a plain-language summary |
+| **Notifications** | Badge and panel for overdue and soon-to-be-due tasks |
+| **Data tools** | Export to CSV, import from JSON, load demo data, clear all |
+| **Experience** | Light and dark themes (remembered), toast messages, custom confirm dialogs, fully responsive layout |
 
----
+All statistics and charts are calculated from your real stored tasks. Nothing is randomly generated.
 
-## Main Features
+## Tech Stack
 
-- **Dashboard** — Summary cards, recent tasks, upcoming deadlines, weekly & priority charts  
-- **All Tasks** — Full list with search, filters, and sort  
-- **My Day** — Focus view for today’s and overdue work  
-- **Kanban Board** — Drag-and-drop status columns  
-- **Calendar** — Monthly view with task dots and day detail  
-- **Analytics** — Completion rate, pending vs completed, priority, weekly, and category charts + text summary  
-- **Settings** — Theme toggle, CSV export, JSON import, demo data, clear all  
-- **Dark / Light mode** with persistent preference  
-- **Toast notifications** and custom confirm dialogs  
+- **HTML5** for semantic structure
+- **CSS3** with custom properties (theming), Flexbox and Grid, responsive breakpoints
+- **Vanilla JavaScript (ES6+)** for state, rendering, SPA-style navigation and the drag-and-drop API
+- **Chart.js 4** for analytics charts (CDN)
+- **Lucide** for icons (CDN)
+- **Inter** from Google Fonts for typography
+- **`localStorage`** as the persistence layer
 
----
+No frameworks, no build tools, no dependencies to install.
 
-## Technologies Used
+## Getting Started
 
-- **HTML5** — Structure and semantics  
-- **CSS3** — Custom properties, Flexbox/Grid, responsive design, transitions  
-- **Vanilla JavaScript** — All logic, SPA-style navigation, localStorage  
-- **Chart.js** (CDN) — Analytics charts  
-- **Lucide Icons** (CDN) — UI icons  
-- **Google Fonts (Inter)** — Typography  
-- **Browser localStorage** — Persistence  
-
-No React, no backend, no build tools required.
-
----
-
-## File Structure
-
-```
-TaskFlow/
-├── index.html    # App shell, modals, layout
-├── style.css     # All styles (light/dark themes)
-├── script.js     # Application logic
-├── theme-init.js # Applies saved theme before first paint
-├── _headers      # Security headers (Netlify / Cloudflare Pages)
-├── vercel.json   # Security headers (Vercel)
-├── .nojekyll     # Lets GitHub Pages serve files as-is
-└── README.md     # This file
-```
-
----
-
-## How to Run
-
-### Option A — VS Code Live Server (recommended)
-
-1. Open the `TaskFlow` folder in **Visual Studio Code**.
-2. Install the **Live Server** extension if you do not have it.
-3. Right-click `index.html` → **Open with Live Server**.
-4. The app opens in your browser (usually `http://127.0.0.1:5500`).
-
-### Option B — Double-click
-
-1. Open `index.html` directly in Chrome, Edge, or Firefox.
-2. Note: Some browsers restrict `localStorage` on `file://` in rare cases; Live Server is preferred.
-
-### Option C — Simple local server
+**Run locally**
 
 ```bash
-cd TaskFlow
+# Option 1: open index.html directly in a modern browser
+# Option 2 (recommended): serve the folder
 python -m http.server 8080
-# Then open http://localhost:8080
+# then visit http://localhost:8080
 ```
 
----
+You can also use the **Live Server** extension in VS Code.
 
-## How localStorage Works
-
-- Tasks are saved under the key `taskflow_tasks` as a JSON array.
-- Theme and settings are saved under `taskflow_settings`.
-- On first visit, sample demo tasks are loaded once (flag: `taskflow_demo_loaded`).
-- Closing the tab and reopening restores all tasks and preferences.
-- Clearing site data / localStorage in browser settings will reset the app.
-
-**Limitation:** Data stays only in that browser on that device. There is no cloud sync or multi-device sharing. This is intentional for a frontend-only academic project.
-
----
-
-## Limitations of a Frontend-Only Application
-
-- No multi-user collaboration or shared boards  
-- No server-side validation or backup  
-- Data can be lost if the user clears browser storage  
-- Charts and stats are computed client-side from the current task list  
-- Import accepts only well-formed JSON arrays of task-like objects  
-
-These constraints keep the project focused on UI/UX, client-side architecture, and Software Engineering documentation rather than full-stack complexity.
-
----
-
-## Basic Test Cases
-
-| # | Test | Expected result |
-|---|------|-----------------|
-| 1 | Create task with title only | Task appears in All Tasks and Dashboard |
-| 2 | Create task with empty title | Error toast; task not saved |
-| 3 | Edit task title and priority | Changes persist after refresh |
-| 4 | Mark task complete | Status updates; completion rate increases |
-| 5 | Delete task (confirm) | Task removed from all views |
-| 6 | Drag task on Kanban | Status updates; counts refresh |
-| 7 | Filter by “Urgent” | Only urgent tasks shown |
-| 8 | Switch to dark mode | Theme applies and survives reload |
-| 9 | Export CSV | File downloads with task rows |
-| 10 | Import invalid JSON | Error toast; existing tasks unchanged |
-| 11 | Clear all tasks | List empty; stats zero |
-| 12 | Calendar next/prev month | Correct days and task dots |
-
----
-
-## How to Present This Project to a Software Engineering Teacher
-
-1. **Start with the problem** — Explain student workload and the need for a focused productivity tool.  
-2. **Show the live app** — Open Dashboard, create a task, complete it, switch to Kanban and drag a card, open Calendar and Analytics.  
-3. **Highlight requirements mapping** — Point to the FR/NFR tables and demonstrate each major feature.  
-4. **Architecture** — Emphasize separation of HTML / CSS / JS, SPA-style navigation without a framework, and localStorage as the “database.”  
-5. **Quality** — Mention responsive design, accessibility (labels, Escape to close modals), validation, and confirm dialogs.  
-6. **Trade-offs** — Honestly state frontend-only limitations and why they fit a course project scope.  
-7. **Demo data** — Use the built-in sample tasks so the charts and overdue badge are non-empty during the presentation.  
-8. **Close** — Summarize what you learned (DOM, state management, Chart.js, UX patterns) and possible future work (optional backend, PWA offline, reminders).
-
----
-
-## Author Notes
-
-Built for academic demonstration. All statistics and charts are calculated from real tasks stored in `localStorage` — no fake or random numbers.
-
-**TaskFlow** © Student Project — Software Engineering
-
-
----
+On first launch the app loads sample tasks so every view has data. You can clear them any time under **Settings → Clear All**.
 
 ## Deployment
 
-TaskFlow is a static site: there is no build step. Publish the folder root.
+TaskFlow is a static site with no build step, so you publish the folder root.
 
 | Host | Steps |
 |------|-------|
-| **Netlify** | Drag the `TaskFlow` folder onto app.netlify.com/drop, or connect the repo (build command: none, publish directory: `.`). `_headers` is applied automatically. |
-| **Vercel** | `npx vercel --prod` from the folder (framework: Other, no build). `vercel.json` is applied automatically. |
-| **GitHub Pages** | Push to a repo, then Settings → Pages → deploy from branch, root folder. `.nojekyll` is included. |
-| **Cloudflare Pages** | Connect the repo, no build command, output directory `/`. `_headers` is applied automatically. |
+| **Netlify** | Drag the project folder onto [app.netlify.com/drop](https://app.netlify.com/drop) |
+| **Vercel** | Run `npx vercel --prod` (framework: Other, no build) |
+| **GitHub Pages** | Push to a repo, then Settings → Pages → deploy from the root folder |
+| **Cloudflare Pages** | Connect the repo, no build command, output directory `/` |
 
-Chart.js and Lucide load from jsDelivr at pinned versions. The CSP in `_headers` / `vercel.json` only allows that CDN, so if you swap CDNs or add inline scripts, update the CSP too. If the CDN is unreachable the app still works; icons and charts are simply missing.
+Security headers are included in `_headers` (Netlify, Cloudflare Pages) and `vercel.json` (Vercel). The Content-Security-Policy only allows the jsDelivr CDN and Google Fonts. If you add other scripts or CDNs, update it. If a CDN is unreachable, the app still works, but icons and charts will be missing.
 
-## Fix log
+## Project Structure
 
-- Modals, notification panel and badge were always visible (`display:flex` overrode `[hidden]`).
-- All Tasks filters reset after each change; they are now kept in state.
-- Calendar and weekly chart used UTC dates, so tasks landed on the wrong day in some timezones; they now use local dates.
-- Weekly "Completed" counted by creation date; tasks now record `completedAt`.
-- Calendar skipped months when navigating from the 29th-31st.
-- Charts leaked on every re-render; old charts are destroyed first.
-- `escapeHtml` did not escape quotes; imported dates were not validated; CSV export now guards against spreadsheet formula injection and includes a UTF-8 BOM.
-- Task actions were hover-only (unusable on touch); the task checkbox is now keyboard accessible.
-- CDN libraries are pinned (Lucide was `@latest`) and the app degrades gracefully if they fail to load.
-- Storage errors (private mode, quota) no longer crash saves.
+```
+TaskFlow/
+├── index.html      # App shell, modals and layout
+├── style.css       # Styles, light/dark themes, responsive rules
+├── script.js       # Application logic (state, views, storage, charts)
+├── theme-init.js   # Applies the saved theme before first paint
+├── _headers        # Security headers (Netlify / Cloudflare Pages)
+├── vercel.json     # Security headers (Vercel)
+├── .nojekyll       # Lets GitHub Pages serve files as-is
+└── README.md
+```
 
-Known limitation: Kanban drag-and-drop uses the HTML5 drag API, which most mobile browsers do not support. On phones, change status via Edit or the checkbox.
+## How It Works
+
+- **State:** tasks live in an in-memory array and are saved to `localStorage` (`taskflow_tasks`) after every change. Preferences are stored under `taskflow_settings`.
+- **Rendering:** each page is a function that returns an HTML string, and a single `renderPage()` swaps it into the layout. Events are re-bound after each render.
+- **Safety:** all user text is escaped before rendering, imported files are validated, and invalid dates are rejected.
+- **Analytics:** tasks record a `completedAt` timestamp, so the weekly chart reflects when work was actually finished.
+
+## Requirements Summary
+
+**Functional:** task CRUD and duplication; completion toggling; search, filter and sort; overdue highlighting; Kanban drag and drop; calendar navigation; live dashboard and analytics; CSV export and JSON import; persistent theme; demo data; deadline notifications.
+
+**Non-functional:** runs fully client-side; responsive on desktop, tablet and mobile; accessible labels, keyboard-operable controls and reduced-motion support; readable, separated HTML/CSS/JS; graceful handling of invalid input and storage errors.
+
+## Test Checklist
+
+| # | Test | Expected result |
+|---|------|-----------------|
+| 1 | Create a task with a title only | Appears in All Tasks and Dashboard |
+| 2 | Submit with an empty title | Error message; nothing saved |
+| 3 | Edit title and priority, then refresh | Changes persist |
+| 4 | Mark a task complete | Status and completion rate update |
+| 5 | Delete a task and confirm | Removed from every view |
+| 6 | Drag a card on the Kanban board | Status changes; column counts update |
+| 7 | Filter by Urgent, then by a subject | Both filters apply together and stay selected |
+| 8 | Switch to dark mode and reload | Theme persists |
+| 9 | Export CSV | File downloads with all task rows |
+| 10 | Import an invalid JSON file | Error message; existing tasks unchanged |
+| 11 | Clear all tasks | Lists are empty; stats show zero |
+| 12 | Navigate months on the calendar | Correct days and task dots |
+
+## Limitations
+
+- Data is stored per browser and device, with no cloud sync or collaboration.
+- Clearing browser data removes your tasks, so export a CSV for a backup.
+- Kanban drag and drop uses the HTML5 drag API, which most mobile browsers don't support. On phones, change status through Edit or the checkbox.
+- Import accepts JSON arrays of task-like objects only.
+
+## Roadmap
+
+- JSON export for a full round-trip backup
+- Touch-friendly Kanban (move menu or pointer events)
+- Installable PWA with offline caching
+- Browser reminders for upcoming deadlines
+- Recurring tasks and subtasks
+- Optional cloud sync
+
+## What I Learned
+
+DOM manipulation without a framework, client-side state management, responsive CSS architecture, data visualisation with Chart.js, timezone-safe date handling, and writing requirements and test cases alongside the code.
+
+## License
+
+Created for academic purposes. Add a licence (for example MIT) if you plan to share or reuse it.
